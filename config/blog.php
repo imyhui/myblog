@@ -5,3 +5,8 @@
  * Date: 18-2-2
  * Time: 上午12:50
  */
+
+return [
+    'title' => 'andyhui\'s blog',
+    'posts_per_page' => 5
+];
