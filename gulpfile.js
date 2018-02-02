@@ -29,7 +29,7 @@ gulp.task("copyfiles", function() {
         .pipe(gulp.dest("public/assets/fonts"));
 
     // 拷贝 datatables
-    var dtDir = 'vendor/bower_dl/datatables-plugins/integration/';
+    var dtDir = 'vendor/bower_dl/datatables.net-plugins/integration/';
 
     gulp.src("vendor/bower_dl/datatables/media/js/jquery.dataTables.js")
         .pipe(gulp.dest('resources/assets/js/'));
