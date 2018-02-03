@@ -9,8 +9,6 @@ class PostCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
-     *
-     * @return bool
      */
     public function authorize()
     {
@@ -35,7 +33,7 @@ class PostCreateRequest extends FormRequest
     }
 
     /**
-     * Return the fields and values to create a new post from
+     * Return the fields and values to create a new post form
      */
     public function postFillData()
     {

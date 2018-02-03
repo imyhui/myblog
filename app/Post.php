@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Services\Markdowner;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
@@ -76,7 +77,7 @@ class Post extends Model
 
         if (count($tags)) {
             $this->tags()->sync(
-                Tag::whereIn('tag', $tags)->lists('id')->all()
+                Tag::whereIn('tag', $tags)->pluck('id')->all()
             );
             return;
         }

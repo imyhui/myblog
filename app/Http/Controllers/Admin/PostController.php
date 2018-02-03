@@ -5,6 +5,12 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Jobs\PostFormFields;
+use App\Http\Requests;
+use App\Http\Requests\PostCreateRequest;
+use App\Http\Requests\PostUpdateRequest;
+use App\Post;
+
 class PostController extends Controller
 {
     /**
@@ -21,7 +27,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        $data = $this->dispatch(new PostFormFields());
+        $data = $this->dispatchNow(new PostFormFields());
 
         return view('admin.post.create', $data);
     }
@@ -36,29 +42,22 @@ class PostController extends Controller
         $post = Post::create($request->postFillData());
         $post->syncTags($request->get('tags', []));
 
-        return redirect()
-            ->route('admin.post.index')
+        return redirect('admin/post')
             ->withSuccess('New Post Successfully Created.');
     }
 
     /**
      * Show the post edit form
-     *
-     * @param int $id
-     * @return Response
      */
     public function edit($id)
     {
-        $data = $this->dispatch(new PostFormFields($id));
+        $data = $this->dispatchNow(new PostFormFields($id));
 
         return view('admin.post.edit', $data);
     }
 
     /**
      * Update the Post
-     *
-     * @param PostUpdateRequest $request
-     * @param int $id
      */
     public function update(PostUpdateRequest $request, $id)
     {
@@ -73,16 +72,12 @@ class PostController extends Controller
                 ->withSuccess('Post saved.');
         }
 
-        return redirect()
-            ->route('admin.post.index')
+        return redirect('/admin/post')
             ->withSuccess('Post saved.');
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return Response
      */
     public function destroy($id)
     {
@@ -90,9 +85,7 @@ class PostController extends Controller
         $post->tags()->detach();
         $post->delete();
 
-        return redirect()
-            ->route('admin.post.index')
+        return redirect('/admin/post')
             ->withSuccess('Post deleted.');
     }
-
 }

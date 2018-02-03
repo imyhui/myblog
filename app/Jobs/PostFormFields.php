@@ -14,6 +14,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 class PostFormFields implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
     /**
      * The id (if any) of the Post row
      *
@@ -58,8 +59,7 @@ class PostFormFields implements ShouldQueue
     {
         $fields = $this->fieldList;
 
-        if ($this->id)
-        {
+        if ($this->id) {
             $fields = $this->fieldsFromModel($this->id, $fields);
         } else {
             $when = Carbon::now()->addHour();
@@ -67,15 +67,14 @@ class PostFormFields implements ShouldQueue
             $fields['publish_time'] = $when->format('g:i A');
         }
 
-        foreach ($fields as $fieldName => $fieldValue){
-            $fields[$fieldName] = old($fieldName, $fieldName);
+        foreach ($fields as $fieldName => $fieldValue) {
+            $fields[$fieldName] = old($fieldName, $fieldValue);
         }
 
         return array_merge(
             $fields,
-            ['allTags' => Tag::lists('tag')->all()]
+            ['allTags' => Tag::pluck('tag')->all()]
         );
-
     }
 
     /**
@@ -96,7 +95,7 @@ class PostFormFields implements ShouldQueue
             $fields[$field] = $post->{$field};
         }
 
-        $fields['tags'] = $post->tags()->lists('tag')->all();
+        $fields['tags'] = $post->tags()->pluck('tag')->all();
 
         return $fields;
     }

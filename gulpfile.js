@@ -29,7 +29,7 @@ gulp.task("copyfiles", function() {
         .pipe(gulp.dest("public/assets/fonts"));
 
     // Copy datatables
-    var dtDir = 'vendor/bower_dl/datatables.net-pluginss/integration/';
+    var dtDir = 'vendor/bower_dl/datatables.net-plugins/integration/';
 
     gulp.src("vendor/bower_dl/datatables/media/js/jquery.dataTables.js")
         .pipe(gulp.dest('resources/assets/js/'));
@@ -43,7 +43,7 @@ gulp.task("copyfiles", function() {
 
     // Copy selectize
     gulp.src("vendor/bower_dl/selectize/dist/css/**")
-        .pipe(gulp.dest("public/assets/selectize/css"));
+        .pipe(gulp.dest("public/assets/selectize/css/"));
 
     gulp.src("vendor/bower_dl/selectize/dist/js/standalone/selectize.min.js")
         .pipe(gulp.dest("public/assets/selectize/"));
