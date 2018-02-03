@@ -14,7 +14,7 @@ class BlogController extends Controller
     public function index(Request $request)
     {
         $tag = $request->get('tag');
-        $data = dispatch(new BlogIndexData($tag));
+        $data = $this->dispatchNow(new BlogIndexData($tag));
         $layout = $tag ? Tag::layout($tag) : 'blog.layouts.index';
 
         return view($layout, $data);

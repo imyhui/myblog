@@ -7,8 +7,13 @@
  */
 
 return [
+    'name' => 'My Blog',
     'title' => 'andyhui\'s blog',
-    'posts_per_page' => 5,
+    'subtitle' => 'andyhui.top',
+    'description' => '基于laravel5.5 blog',
+    'page_image' => 'home-bg.jpg',
+    'author' => 'imyhui',
+    'posts_per_page' => 10,
     'uploads' => [
         'storage' => 'local',
         'webpath' => '/uploads',
