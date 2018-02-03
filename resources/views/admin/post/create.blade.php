@@ -26,7 +26,7 @@
 
                         @include('admin.partials.errors')
 
-                        <form class="form-horizontal" role="form" method="POST" action="{{ url('admin.post.store') }}">
+                        <form class="form-horizontal" role="form" method="POST" action="/admin/post">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                             @include('admin.post._form')
