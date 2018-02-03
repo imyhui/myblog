@@ -3,7 +3,7 @@ var rename = require('gulp-rename');
 var elixir = require('laravel-elixir');
 
 /**
- * 拷贝文件
+ * Copy any needed files.
  *
  * Do a 'gulp copyfiles' after bower updates
  */
@@ -29,7 +29,7 @@ gulp.task("copyfiles", function() {
         .pipe(gulp.dest("public/assets/fonts"));
 
     // Copy datatables
-    var dtDir = 'vendor/bower_dl/datatables.net-plugins/integration/';
+    var dtDir = 'vendor/bower_dl/datatables-plugins/integration/';
 
     gulp.src("vendor/bower_dl/datatables/media/js/jquery.dataTables.js")
         .pipe(gulp.dest('resources/assets/js/'));
@@ -43,7 +43,7 @@ gulp.task("copyfiles", function() {
 
     // Copy selectize
     gulp.src("vendor/bower_dl/selectize/dist/css/**")
-        .pipe(gulp.dest("public/assets/selectize/css/"));
+        .pipe(gulp.dest("public/assets/selectize/css"));
 
     gulp.src("vendor/bower_dl/selectize/dist/js/standalone/selectize.min.js")
         .pipe(gulp.dest("public/assets/selectize/"));
@@ -61,6 +61,9 @@ gulp.task("copyfiles", function() {
     gulp.src("vendor/bower_dl/pickadate/lib/compressed/picker.time.js")
         .pipe(gulp.dest("public/assets/pickadate/"));
 
+    // Copy clean-blog less files
+    gulp.src("vendor/bower_dl/clean-blog/less/**")
+        .pipe(gulp.dest("resources/assets/less/clean-blog"));
 });
 
 /**
@@ -68,18 +71,23 @@ gulp.task("copyfiles", function() {
  */
 elixir(function(mix) {
 
-    // 合并 JS
-    mix.scripts(
-        [
+    // Combine scripts
+    mix.scripts([
             'js/jquery.js',
             'js/bootstrap.js',
             'js/jquery.dataTables.js',
             'js/dataTables.bootstrap.js'
         ],
-        'public/assets/js/admin.js',
-        'resources/assets'
-    );
+        'public/assets/js/admin.js', 'resources//assets');
 
-    // 编译 Less
+    // Combine blog scripts
+    mix.scripts([
+        'js/jquery.js',
+        'js/bootstrap.js',
+        'js/blog.js'
+    ], 'public/assets/js/blog.js', 'resources//assets');
+
+    // Compile CSS
     mix.less('admin.less', 'public/assets/css/admin.css');
+    mix.less('blog.less', 'public/assets/css/blog.css');
 });
